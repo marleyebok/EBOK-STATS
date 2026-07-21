@@ -3,68 +3,122 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EBOK Stats — bientôt disponible</title>
-<meta name="description" content="EBOK Stats arrive bientôt. La saisie et l'analyse de statistiques, du live scoring au bilan de saison. Un outil de la galaxie EBOK Basketball.">
+<title>EBOK — Application en construction</title>
+<meta name="description" content="Cette application de la galaxie EBOK Basketball est en construction. Découvrez les autres outils en attendant.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{ --c:#2E6FD6; }
+  :root{ --accent:#E8590C; --ink:#1b1a18; --muted:#6d685f; --bg:#f7f3ec; --card:#fff; --line:#e7e0d3; }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
   body{
-    font-family:'Inter',system-ui,sans-serif;color:#ecedef;
-    background:
-      radial-gradient(1100px 600px at 50% -10%, color-mix(in srgb, var(--c) 34%, transparent), transparent 70%),
-      radial-gradient(800px 500px at 90% 110%, color-mix(in srgb, var(--c) 18%, transparent), transparent 70%),
-      #0e0f12;
+    font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);
     min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;padding:40px 20px;overflow:hidden;position:relative;
+    text-align:center;padding:48px 22px;gap:8px;
   }
-  /* lignes de terrain discrètes */
-  body::before{
-    content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;
-    background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
-    background-size:60px 60px;mask-image:radial-gradient(circle at 50% 40%,#000,transparent 75%);
+  .logo{font-family:'Anton',sans-serif;font-size:clamp(40px,9vw,72px);letter-spacing:1px;text-transform:uppercase;line-height:1}
+  .logo span{color:var(--accent)}
+  h1{font-size:clamp(20px,4vw,27px);font-weight:700;margin-top:22px}
+  .sub{color:var(--muted);font-size:16px;margin-top:8px}
+
+  .notify-btn{
+    margin-top:30px;display:inline-flex;align-items:center;gap:9px;
+    background:var(--accent);color:#fff;font-weight:800;font-size:15.5px;
+    border:0;border-radius:12px;padding:14px 26px;cursor:pointer;
+    box-shadow:0 10px 26px -8px var(--accent);transition:transform .15s,box-shadow .15s;
   }
-  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-    color:color-mix(in srgb,var(--c) 60%,#fff);margin-bottom:22px}
-  .ball{font-size:44px;line-height:1;animation:bounce 1.6s cubic-bezier(.5,.05,.5,.95) infinite;filter:drop-shadow(0 12px 10px rgba(0,0,0,.5))}
-  @keyframes bounce{0%,100%{transform:translateY(-14px)}50%{transform:translateY(6px) scaleY(.94)}}
-  h1{font-family:'Anton',sans-serif;font-size:clamp(44px,11vw,104px);line-height:.95;letter-spacing:1px;
-    text-transform:uppercase;margin:18px 0 6px}
-  h1 .n{color:var(--c)}
-  .pill{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:700;letter-spacing:.5px;
-    text-transform:uppercase;color:#0e0f12;background:var(--c);border-radius:999px;padding:7px 16px;margin:6px 0 20px;
-    box-shadow:0 8px 24px color-mix(in srgb,var(--c) 45%,transparent)}
-  .pill .dot{width:8px;height:8px;border-radius:50%;background:#0e0f12;animation:pulse 1.2s ease-in-out infinite}
-  @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
-  .desc{max-width:540px;color:#b9bcc4;font-size:17px;line-height:1.6;margin:0 auto 10px}
-  .sub{max-width:520px;color:#8b8f99;font-size:14.5px;margin:0 auto 30px}
-  .cta{display:inline-flex;align-items:center;gap:9px;background:var(--c);color:#0e0f12;font-weight:800;
-    text-decoration:none;border-radius:12px;padding:14px 26px;font-size:15.5px;
-    box-shadow:0 10px 30px color-mix(in srgb,var(--c) 40%,transparent);transition:transform .15s,box-shadow .15s}
-  .cta:hover{transform:translateY(-2px);box-shadow:0 14px 36px color-mix(in srgb,var(--c) 55%,transparent)}
-  .tools-lead{margin:44px 0 12px;font-size:12.5px;letter-spacing:1.5px;text-transform:uppercase;color:#7c8089;font-weight:700}
-  .tools{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:640px}
-  .tool{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#e7e9ec;font-weight:700;font-size:13.5px;
-    background:#17191e;border:1px solid #2a2e36;border-radius:999px;padding:8px 15px;transition:border-color .15s,transform .15s}
-  .tool:hover{border-color:var(--tc);transform:translateY(-2px)}
-  .tool .d{width:9px;height:9px;border-radius:50%;background:var(--tc)}
-  footer{margin-top:46px;font-size:12.5px;color:#71757e}
-  footer a{color:color-mix(in srgb,var(--c) 55%,#fff);text-decoration:none;font-weight:600}
+  .notify-btn:hover{transform:translateY(-2px);box-shadow:0 14px 32px -8px var(--accent)}
+
+  .form{margin-top:26px;display:none;flex-direction:column;gap:10px;width:min(360px,100%)}
+  .form.show{display:flex}
+  .form-row{display:flex;gap:8px}
+  .form input{
+    flex:1;font:inherit;font-size:15px;padding:12px 15px;border:1px solid var(--line);
+    border-radius:10px;background:var(--card);color:var(--ink);
+  }
+  .form input:focus{outline:2px solid var(--accent);border-color:transparent}
+  .form button{
+    background:var(--ink);color:#fff;font:inherit;font-weight:700;border:0;border-radius:10px;
+    padding:0 18px;cursor:pointer;
+  }
+  .form .hint{font-size:12.5px;color:var(--muted)}
+  .done{margin-top:26px;color:#1f8f52;font-weight:700;font-size:16px;display:none}
+  .done.show{display:block}
+
+  .galaxy{margin-top:64px;display:flex;flex-direction:column;align-items:center;gap:16px;
+    padding-top:34px;border-top:1px solid var(--line);width:min(560px,100%)}
+  .galaxy p{color:var(--muted);font-size:14.5px;font-weight:600}
+  .galaxy a{display:inline-block;transition:transform .15s}
+  .galaxy a:hover{transform:translateY(-2px)}
+  .galaxy img{height:54px;width:auto;filter:drop-shadow(0 8px 16px rgba(0,0,0,.12))}
+  footer{margin-top:30px;font-size:12.5px;color:#9a948a}
 </style>
 </head>
 <body>
-  <div class="eyebrow">Galaxie EBOK · 1 compte, 10 outils</div>
-  <div class="ball">🏀</div>
-  <h1>EBOK <span class="n">STATS</span></h1>
-  <div class="pill"><span class="dot"></span> En construction</div>
-  <p class="desc">La saisie et l'analyse de statistiques, du live scoring au bilan de saison.</p>
-  <p class="sub">Cet outil n'est pas encore prêt — on y travaille. En attendant, explore le reste de la galaxie 🏀</p>
-  <a class="cta" href="https://ebok-basketball.vercel.app/">← Retour à EBOK Basketball</a>
-  <div class="tools-lead">Déjà en ligne</div>
-  <div class="tools"><a class="tool" style="--tc:#E23A3A" href="https://ebok-event.vercel.app/"><span class="d"></span>EBOK Event</a><a class="tool" style="--tc:#1FA98C" href="https://ebok-video.vercel.app/"><span class="d"></span>EBOK Video</a><a class="tool" style="--tc:#4CA62E" href="https://ebok-mercato.vercel.app/"><span class="d"></span>EBOK Mercato</a><a class="tool" style="--tc:#C9A227" href="https://ebok-medias.vercel.app/"><span class="d"></span>EBOK Médias</a><a class="tool" style="--tc:#A3BD18" href="https://ebok-workout.vercel.app/"><span class="d"></span>EBOK Workout</a></div>
-  <footer>Un outil de la galaxie <a href="https://ebok-basketball.vercel.app/">EBOK Basketball</a> · © 2026</footer>
+  <div class="logo">EBOK <span>APP</span></div>
+  <h1>L'application est en construction</h1>
+  <p class="sub">On y travaille — elle arrive très bientôt. 🏀</p>
+
+  <button class="notify-btn" id="notifyBtn" type="button">Me prévenir quand l'app est prête</button>
+
+  <form class="form" id="notifyForm">
+    <div class="form-row">
+      <input id="email" type="email" required placeholder="ton@email.fr" aria-label="Votre e-mail">
+      <button type="submit">Valider</button>
+    </div>
+    <span class="hint">On te préviendra dès l'ouverture. Pas de spam, promis.</span>
+  </form>
+  <p class="done" id="doneMsg">Merci ! On te préviendra dès que l'application ouvre. 🏀</p>
+
+  <div class="galaxy">
+    <p>Découvrez les 10 autres applications de la galaxie EBOK</p>
+    <a href="https://ebok-basketball.vercel.app/" aria-label="EBOK Basketball — accueil de la galaxie">
+      <img src="/ebokbasketball.png" alt="EBOK Basketball">
+    </a>
+  </div>
+
+  <footer>Galaxie EBOK Basketball · © 2026</footer>
+
+<script>
+  (function(){
+    var WAITLIST_API = "https://ebok-dashboard.vercel.app/api/waitlist";
+    var btn = document.getElementById('notifyBtn');
+    var form = document.getElementById('notifyForm');
+    var done = document.getElementById('doneMsg');
+    var email = document.getElementById('email');
+
+    btn.addEventListener('click', function(){
+      form.classList.add('show');
+      btn.style.display = 'none';
+      email.focus();
+    });
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var value = (email.value || '').trim();
+      if(!value) return;
+      var submitBtn = form.querySelector('button');
+      submitBtn.disabled = true; submitBtn.textContent = '…';
+      fetch(WAITLIST_API, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ email: value, source: window.location.hostname })
+      }).then(function(r){
+        // On confirme même si l'API renvoie une erreur douce : l'e-mail est
+        // le plus souvent enregistré, et on ne bloque pas le visiteur.
+        form.classList.remove('show');
+        done.classList.add('show');
+      }).catch(function(){
+        // Repli : ouvre le client mail du visiteur.
+        window.location.href = 'mailto:marley.ebok@gmail.com?subject=' +
+          encodeURIComponent('Me prévenir — ' + window.location.hostname) +
+          '&body=' + encodeURIComponent('Préviens-moi à : ' + value);
+        form.classList.remove('show');
+        done.classList.add('show');
+      });
+    });
+  })();
+</script>
 </body>
 </html>
